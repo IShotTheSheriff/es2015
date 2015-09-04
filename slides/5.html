@@ -1,0 +1,377 @@
+<section>
+    <section>
+        <h3>Evolution of controllers</h3>
+        <img src="assets/evolution.jpg" />
+    </section>
+
+    <section>
+        <h3>Begining</h3>
+<pre class="fragment"><code data-trim contenteditable>
+'use strict';
+
+angular.module('app').controller('TodoCtrl', function($scope){
+    $scope.todos = [];
+
+    $scope.newTodo = '' ;
+
+    $scope.addTodo = function(todo){
+        $scope.todos.push(todo);
+    }
+
+    $scope.removeTodo = function (todo) {
+        $scope.todos.splice($scope.todos.indexOf(todo), 1);
+    };
+});
+</code></pre>
+    </section>
+
+    <section>
+<pre><code data-trim contenteditable>
+<div ng-controller="TodoCtrl">
+    <input type="text" ng-model="newTodo" />
+    <button type="button" ng-click="addTodo(newTodo)"></button>
+    <ul>
+        <li ng-repeat="todo in todos">
+            {{todo}}
+            <button type="button" ng-click="removeTodo(todo)"></button>
+        </li>
+    </ul>
+</div>
+</code></pre>
+    </section>
+
+    <section>
+        <h3>Small improvements</h3>
+<pre class="fragment"><code data-trim contenteditable>
+(function (){
+    'use strict';
+    angular.module('app').controller('TodoCtrl', TodoCtrl);
+
+    function TodoCtrl($scope){
+        $scope.todos = [];
+        $scope.newTodo = '' ;
+
+        $scope.addTodo = function addTodo(todo){
+            $scope.todos.push(todo);
+        }
+
+        $scope.removeTodo = function removeTodo(todo) {
+            $scope.todos.splice($scope.todos.indexOf(todo), 1);
+        };
+    }
+});
+</code></pre>
+    </section>
+
+    <section>
+        <h3 class="keep-it-simple">controllerAs</h3>
+<pre class="fragment"><code data-trim contenteditable>
+<div ng-controller="TodoCtrl as ctrl">
+    <input type="text" ng-model="ctrl.newTodo" />
+    <button type="button" ng-click="ctrl.addTodo(newTodo)"></button>
+    <ul>
+        <li ng-repeat="todo in ctrl.todos">
+            {{todo}}
+            <button type="button" ng-click="ctrl.removeTodo(todo)"></button>
+        </li>
+    </ul>
+</div>
+</code></pre>
+    </section>
+
+    <section>
+<pre><code data-trim contenteditable>
+(function (){
+    'use strict';
+    angular.module('app').controller('TodoCtrl', TodoCtrl);
+
+    function TodoCtrl(){
+        this.todos = [];
+        this.newTodo = '' ;
+
+        this.addTodo = function addTodo(todo){
+            this.todos.push(todo);
+        }
+
+        this.removeTodo = function removeTodo(todo) {
+            this.todos.splice(this.todos.indexOf(todo), 1);
+        };
+    }
+});
+</code></pre>
+    </section>
+
+    <section>
+        <h3>Almost there but ..</h3>
+        <img class="fragment" src="assets/this-is-bullshit.png" />
+    </section>
+
+    <section>
+        <h3>Final form</h3>
+<pre><code data-trim contenteditable>
+(function (){
+    'use strict';
+    angular.module('app').controller('TodoCtrl', TodoCtrl);
+
+    function TodoCtrl(){
+        var vm = this;
+        vm.todos = [];
+        vm.newTodo = '' ;
+
+        vm.addTodo = addTodo;
+        vm.removeTodo = removeTodo;
+
+        function addTodo(todo){
+            vm.todos.push(todo);
+        }
+
+        function removeTodo(todo) {
+            vm.todos.splice(vm.todos.indexOf(todo), 1);
+        };
+    }
+});
+</code></pre>
+    </section>
+
+    <section>
+        <h3>ES6 classes</h3>
+<pre><code data-trim contenteditable>
+'use strict';
+
+class TodoCtrl{
+    constructor(){
+        this.todos = [];
+        this.newTodo = '';
+    }
+
+    addTodo(todo){
+        this.todos.push(todo);
+    }
+
+    removeTodo(todo) {
+        this.todos.splice(this.todos.indexOf(todo), 1);
+    };
+}
+angular.module('app').controller('TodoCtrl', TodoCtrl);
+</code></pre>
+    </section>
+
+    <section>
+        <h3>Orly?</h3>
+        <img src="assets/orly.jpg" />
+    </section>
+
+    <section>
+        <h3>ES5 prototypes</h3>
+
+<pre><code data-trim contenteditable>
+function TodoCtrl(){
+    this.todos = [];
+    this.newTodo = '';
+}
+TodoCtrl.prototype.addTodo = function(todo){
+    this.todos.push(todo);
+}
+TodoCtrl.prototype.removeTodo = function(todo) {
+    this.todos.splice(this.todos.indexOf(todo), 1);
+};
+angular.module('app').controller('TodoCtrl', TodoCtrl);
+</code></pre>
+    </section>
+
+    <section>
+        <h3>setters and getters</h3>
+<pre class="fragment"><code data-trim contenteditable>
+class MyClass {
+    constructor(){
+        this._prop = 0;
+    }
+    get prop() {
+        console.log('getter');
+        return this._prop;
+    }
+    set prop(value) {
+        console.log('setter: ' + value);
+        this._prop = value;
+    }
+}
+
+let inst = new MyClass();
+inst = 123; // setter + 123
+inst.prop; // getter //123
+</code></pre>
+    </section>
+
+    <section>
+        <h3>Easy extending</h3>
+<pre class="fragment"><code data-trim contenteditable>
+class Foo {
+    constructor(a,b) {
+        this.x = a;
+        this.y = b;
+    }
+
+    gimmeXY() {
+        return this.x * this.y;
+    }
+}
+
+class Bar extends Foo {
+    constructor(a,b,c) {
+        super( a, b );
+        this.z = c;
+    }
+
+    gimmeXYZ() {
+        return super.gimmeXY() * this.z;
+    }
+}
+
+var b = new Bar( 5, 15, 25 );
+
+b.x;                        // 5
+b.y;                        // 15
+b.z;                        // 25
+b.gimmeXYZ();               // 1875
+</code></pre>
+        <aside class="notes">W tym przykładzie super użyte w construkotrze odnosi się do konstruktora obiektu nadrzędnego a w metodzie do instancji tego obiektu.
+            Bar extends Foo of course means to link the [[Prototype]] of Bar.prototype to Foo.prototype. So, super in a method like gimmeXYZ() specifically means Foo.prototype, whereas super means Foo when used in the Bar constructor.
+        </aside>
+    </section>
+
+    <section>
+        <h3>Class summary</h3>
+        <ul>
+            <li class="fragment">Must be used with <code>new</code> operator, unlike ES5 <code>Foo.call(obj);</code></li>
+            <li class="fragment">It's not hoisted!</li>
+            <li class="fragment">Can not declare properties outside of constructor (except ES7 private proposal)</li>
+            <li class="fragment">Can not access super properties in constructor</li>
+            <li class="fragment">Constructor is optional</li>
+        </ul>
+        <aside class="notes">W przypadku klas dziedziczacych domyslny konstruktor automatycznie wola super</aside>
+    </section>
+
+    <section>
+        <img src="assets/now-wait-a-minute-o.gif" />
+    </section>
+
+    <section>
+        <h3>Handling DI</h3>
+<pre class="fragment"><code data-trim contenteditable>
+class Ctrl{
+    constructor(Service, AnotherService){
+        this.Service = Service;
+        this.AnotherService = AnotherService;
+    }
+
+    doSomething(){
+        this.Service.doSomething();
+    }
+}
+</code></pre>
+    </section>
+
+    <section>
+        <h3>My preferred way</h3>
+<pre class="fragment"><code data-trim contenteditable>
+let internal;
+
+class Ctrl{
+    constructor(Service, AnotherService){
+        internal = {Service, AnotherService};
+    }
+
+    doSomething(){
+        internal.Service.doSomething();
+    }
+}
+</code></pre>
+        <aside class="notes">Należy uważać jeżeli zaleznosc to nie singleton a ctrl jest używany wielokrotnie np. w dyrektywie</aside>
+    </section>
+
+    <section>
+        <h3>Be careful with getters</h3>
+<div class="fragment">
+<pre><code data-trim contenteditable>
+<span ng-repeat="n in ctrl.items100 track by $index">
+    {{e2Ctrl.test}}
+</span>
+</code></pre>
+
+<pre class="fragment"><code data-trim contenteditable>
+class Ctrl{
+    constructor(){
+        this.items100 = new Array(100);
+        this._test = 'some test value';
+    }
+
+    get test(){
+        console.log('test');
+        return this._test;
+    }
+}
+
+//100x test + in digest cycles
+</code></pre>
+</div>
+    </section>
+
+    <section>
+        <h3>Common logic in services</h3>
+<pre class="fragment"><code data-trim contenteditable>
+class StateAware{
+    constructor(){
+        this.state = {
+            current: 'init'
+        };
+    }
+
+    load(){
+        this.state.current = 'loading';
+        return this.loadData()
+            .then((resp) => {
+                this.data = resp;
+            })
+            .finally(() = > {
+                this.state.current = 'ready';
+            });
+    }
+}
+
+class AccountsService extends StateAware{
+    loadData(){
+        //.. some logic here (ex. calling $http.service);
+    }
+}
+
+class LeadsService extends StateAware{
+    loadData(){
+        //.. some logic here (ex. calling $http.service);
+    }
+}
+</code></pre>
+    </section>
+
+    <section>
+        <h3>How about directives?</h3>
+        <img class="fragment" src="assets/ihavenoidea.jpg" />
+    </section>
+
+    <section>
+<pre><code data-trim contenteditable>
+class Sample {
+    constructor() {
+        this.restrict = 'E';
+        this.scope = {};
+        this.controller = 'SampleCtrl';
+        this.controllerAs = 'ctrl';
+        this.templateUrl = 'sample.html';
+        this.bindToController = {
+            info: '='
+        };
+    }
+}
+angular.module('app').directive('sample', () => new Sample());
+</code></pre>
+    </section>
+</section>

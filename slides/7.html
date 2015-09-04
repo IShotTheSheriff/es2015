@@ -1,0 +1,71 @@
+<section>
+
+    <section data-background="assets/arrow.jpg"></section>
+
+    <section>
+<pre><code data-trim contenteditable>
+let data = [
+    {id: 1, name: 'John Snow', deleted: true},
+    {id: 2, name: 'Ned Stark', deleted: true},
+    //.. far far down ..
+    {id: 60, name: 'Aria Stark', deleted: false}
+];
+</code></pre>
+
+<div class="fragment">Standard function</div>
+<pre class="fragment"><code data-trim contenteditable>
+data.filter(function(person){
+    return !person.deleted;
+});
+</code></pre>
+
+<div class="fragment">Arrow function</div>
+<pre class="fragment"><code data-trim contenteditable>
+data.filter(person => !person.deleted);
+</code></pre>
+    </section>
+
+    <section>
+        <h3>Usage in callbacks</h3>
+<pre class="fragment"><code data-trim contenteditable>
+function Clickable(){
+    this.clicks = 0;
+
+    $('.elem').on('click', () => {
+        this.clicks++;
+        console.log(this.clicks);
+    });
+}
+</code></pre>
+    </section>
+
+    <section>
+        <h3>Multiple argument calls</h3>
+<pre class="fragment"><code data-trim contenteditable>
+data.forEach((person, index) => {
+    console.log(`${index}. ${person.name}`);
+});
+</code></pre>
+    </section>
+
+    <section>
+        <h3>Syntax gotcha</h3>
+<pre><code data-trim contenteditable>
+let returnItem = id => ({id: id, name: 'Some name'});
+</code></pre>
+    </section>
+
+    <section>
+        <h3>Summary</h3>
+
+        <ol>
+            <li class="fragment">Lexical this</li>
+            <li class="fragment">Can't change this</li>
+            <li class="fragment">Can't be used with new</li>
+            <li class="fragment">Don't have arguments array-like object</li>
+        </ol>
+
+        <aside class="notes">1. meaning from where it was defined not were it was used. 2. this was source of errors. 3. function with single this easier to optimize.</aside>
+    </section>
+
+</section>

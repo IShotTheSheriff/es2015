@@ -1,0 +1,139 @@
+<!-- destructuring -->
+<section>
+    <section>
+        <h3>Destructuring, property assign shortcuts</h3>
+        <h3 class="fragment">ES5</h3>
+<pre class="fragment"><code data-trim contenteditable>
+function data(){
+    return [1, 2, 3];
+}
+let tmp = data();
+let a = tmp[0], //a = 1
+    b = tmp[1], //b = 2
+    c = tmp[2]; //c = 3
+</code></pre>
+        <h3 class="fragment">ES2015</h3>
+<pre class="fragment"><code data-trim contenteditable>
+function data(){
+    return [1, 2, 3];
+}
+let [a,b,c] = data(); // a = 1, b = 2, c = 3
+</code></pre>
+    </section>
+
+    <section>
+        <h2>Destructuring objects</h2>
+<pre class="fragment"><code data-trim contenteditable>
+function data(){
+    return {
+        firstName: 'John',
+        lastName: 'Snow',
+        occupation: 'Lord Commander of the Night's Watch'
+    };
+}
+var {firstName, lastName: a, occupation: b} = data();
+
+//firstName = 'John',
+//a: 'Snow',
+//b: 'Lord Commander of the Night's Watch'
+</code></pre>
+        <aside class="notes">Wazne ze alias odczuwamy jako klucz a tak naprawde to wartosc. A wiec odwrocenie tego co stosujemy przy obiektach. np. x = o.x, y = o.y</aside>
+    </section>
+
+    <section>
+        <h3>University classic - variable swap</h3>
+<pre class="fragment"><code data-trim contenteditable>
+var x = 10, y = 20;
+[ y, x ] = [ x, y ];
+console.log( x, y );                // 20 10
+</code></pre>
+    </section>
+
+    <section>
+        <h3>Destructure null or undefined = Error!</h3>
+<pre class="fragment fade-in"><code data-trim contenteditable>
+let {x, y} = null;
+let {a, b} = undefined;
+</code></pre>
+        <h3 class="fragment fade-in">However unexisting variables are ok</h3>
+<pre class="fragment fade-in"><code data-trim contenteditable>
+let options = {
+    a: 1,
+    b: 2
+};
+let {a, c} = options;
+console.log(a); // 1
+console.log(b); //undefined
+console.log(c); //undefined
+</code></pre>
+    </section>
+
+    <section>
+        <h3>Syntax gotcha</h3>
+<pre class="fragment"><code data-trim contenteditable>
+let person = {
+    id: 1,
+    address: {
+        street: 'Przy parku',
+        city: 'Warszawa'
+    }
+};
+let id;
+let address;
+
+{id, address} = person; //Error
+({id, address} = person); //Ok!
+</code></pre>
+        <aside class="notes">Nie można użyć bez vara bezpośrednio gdyż traktowane jest to jako nowy blok a nie destructuring</aside>
+    </section>
+
+    <section>
+        <h3>Objects and arrays are destructured as references!</h3>
+<pre class="notes"><code data-trim contenteditable>
+let color = {
+    name: 'white',
+    rgb: [255, 255, 255]
+};
+
+let {name: colorName, rgb} = color;
+console.log(colorName); //'white'
+console.log(rgb); //[255, 255, 255]
+console.log(rgb === color.rgb); // true
+</code></pre>
+    </section>
+
+    <section>
+        <h3>Destructure function params</h3>
+        <h3 class="fragment">ES5</h3>
+<pre class="fragment"><code data-trim contenteditable>
+function setCookie(name, value, options){
+    options = options || {};
+    let secure = options.secure;
+    let path = options.path;
+    let domain = options.domain;
+    //....
+}
+
+setCookie('presentation', 'es2015', {
+    secure: false;
+});
+</code></pre>
+        <aside class="notes">Po samej definicji nie widać jakie options mogę przekazać. </aside>
+    </section>
+
+    <section>
+        <h3>Destructure function params</h3>
+        <h3 class="fragment">ES2015</h3>
+<pre class="fragment"><code data-trim contenteditable>
+function setCookie(name, value, {secure, path, domain} = {}){
+    //...
+}
+
+setCookie('presentation', 'es2015', {
+    secure: false;
+});
+</code></pre>
+        <aside class="notes">Jeżeli nie dalibyśmy domyślnego parametru to byłby ref error.</aside>
+    </section>
+
+</section>

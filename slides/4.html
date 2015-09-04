@@ -1,0 +1,105 @@
+<section>
+    <section>
+        <h3>let, const, block scope</h3>
+<pre class="fragment"><code data-trim contenteditable>
+let a = 2;
+{
+    let a = 3;
+    console.log( a );   // 3
+}
+console.log( a );       // 2
+
+{
+    const a = 2;
+    console.log( a );   // 2
+    a = 3;              // TypeError!
+}
+</code></pre>
+        <aside class="notes">Talk about block scoping</aside>
+    </section>
+
+    <section>
+        <h3>Block scoping ES5 vs ES2015</h3>
+<pre><code data-trim contenteditable>
+if (true) {
+    function weather() {
+        console.log( "Sun" );
+    }
+} else {
+    function weather() {
+        console.log( "Rain" );
+    }
+}
+weather();
+</code></pre>
+        <aside class="notes">ES5 hoisting = "RAIN", ES6 = ReferenceError</aside>
+    </section>
+
+    <section>
+        <h3>ES5</h3>
+<pre class="fragment"><code data-trim contenteditable>
+var funcs = [];
+for (var i = 0; i < 5; i++) {
+    funcs.push( function(){
+        console.log( i );
+    });
+}
+funcs[3]();     // 5
+</code></pre>
+        <div class="fragment">
+        <h3>ES2015</h3>
+<pre><code data-trim contenteditable>
+var funcs = [];
+for (let i = 0; i < 5; i++) {
+    funcs.push( function(){
+        console.log( i );
+    });
+}
+funcs[3]();     // 3
+</code></pre>
+        </div>
+    </section>
+
+    <section data-background="assets/tdz.jpg">
+        <h2 class="en-color-white">Temporal Dead Zone (TDZ)</h2>
+    </section>
+
+    <section>
+        <h3>Temporal Dead Zone (TDZ)</h3>
+<pre class="fragment"><code data-trim contenteditable>
+console.log( a );   // undefined
+console.log( b );   // ReferenceError!
+var a;
+let b;
+</code></pre>
+
+<pre class="fragment"><code data-trim contenteditable>
+if( typeof a === 'undefined' ){
+    console.log('a is ok');
+}
+
+if( typeof b === 'undefined' ){ //ReferenceError!
+    console.log('b is ok');
+}
+
+let b;
+</code></pre>
+        <span class="fragment en-color-red">*it's not an issue when using babel</span>
+        <aside class="notes">Przestrzen miedzy rozpoczeciem bloku a deklaracją</aside>
+    </section>
+
+    <section>
+        <h2><i>(not so)</i> const</h2>
+<pre class="fragment"><code data-trim contenteditable>
+const arr = ['dog', 'cat', 'snake'];
+arr.push('fish');
+console.log(arr); // ['dog', 'cat', 'snake', 'fish'];
+</code></pre>
+        <aside class="notes" style="font-size: 18px;">Only reference is constant not value! Assigning an object or array as
+            a constant means that value will not be able to be garbage collected until that constant's
+            lexical scope goes away, as the reference to the value can never be unset. <br />
+            -- Object freeze properties Object.freeze(obj);
+        </aside>
+    </section>
+
+</section>

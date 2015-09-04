@@ -1,0 +1,111 @@
+<section>
+
+    <section>
+        <h2>Modules</h2>
+        <img src="assets/modules.png" />
+    </section>
+
+    <section>
+        <h3>Keeping it simple</h3>
+<pre><code data-trim contenteditable>
+console.log('This will fire on import');
+var globalVariable = "This looks bad";
+
+class Ctrl{
+    something(){
+        return 'something';
+    }
+}
+angular.module('app').controller('Ctrl', Ctrl);
+</code></pre>
+
+<pre class="fragment"><code data-trim contenteditable>
+angular.module('app', []);
+import 'Ctrl';
+console.log(globalVariable);
+</code></pre>
+
+<pre class="fragment"><code data-trim contenteditable>
+//This will fire on import
+//undefined
+</code></pre>
+
+    </section>
+
+    <section>
+        <h3>Being more specific</h3>
+
+<pre><code data-trim contenteditable>
+class Service{
+    something(){
+        return 'something';
+    }
+}
+export default Service;
+</code></pre>
+
+<pre class="fragment"><code data-trim contenteditable>
+import Service from './services/Service';
+
+angular.module('app', []).service('Service', Service);
+</code></pre>
+    </section>
+
+    <section>
+        <h3>Being picky</h3>
+
+<pre><code data-trim contenteditable>
+class Component{
+    constructor(){
+        //.. standard DDO
+        this.controller = 'Ctrl';
+        this.controllerAs = 'ctrl';
+        this.bindToController = true;
+        this.template = '<div>{{ctrl.something}}</div>';
+    }
+}
+class Ctrl{
+    constructor(){
+        this.something = 'Some text';
+    }
+}
+export { Component, Ctrl };
+</code></pre>
+<pre class="fragment"><code data-trim contenteditable>
+import {Component, Ctrl} from 'componentDirective';
+angular.module('app', [])
+    .controller('Ctrl', Ctrl)
+    .directive('component', () => new Component());
+</code></pre>
+
+    </section>
+
+    <section>
+    <h3>Importing with alias</h3>
+
+<pre><code data-trim contenteditable>
+export function helperFunction(){ // ..}
+export function getSomething(){ // ..}
+export var randomVariable = 'o_O';
+</code></pre>
+
+<pre><code data-trim contenteditable>
+import * as lib from 'helpers';
+
+lib.helperFunction();
+console.log(lib.randomVariable);
+</code></pre>
+    </section>
+
+    <section>
+        <h2>Why modules?</h2>
+        <ul>
+            <li class="fragment">Standarized syntax</li>
+            <li class="fragment">Better code organization</li>
+            <li class="fragment">Avoid pollution of global namespace</li>
+        </ul>
+
+        <img class="fragment" src="assets/compat.png" />
+    </section>
+</section>
+

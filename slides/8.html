@@ -1,0 +1,40 @@
+<section>
+    <section>
+    <h3>Template strings</h3>
+<pre class="fragment"><code data-trim contenteditable>
+let name = "Ice Cube";
+let greeting = `Hello ${name}!`;
+console.log(greeting); //Hello Ice Cube
+</code></pre>
+
+<pre class="fragment"><code data-trim contenteditable>
+var text =
+`This is
+more then one
+line!`;
+
+console.log( text );
+//This is
+//more then one
+//line!
+</code></pre>
+    </section>
+
+    <section>
+        <h3>Tagging</h3>
+<pre class="fragment"><code data-trim contenteditable>
+let message = Currency`You should pay ${value} @currency@ discount.`;
+
+function Currency(templateData, ...args){
+    return templateData.map((part, index) => {
+        let str = part;
+        if( args[index] ){
+            str = part + String(args[index]);
+        }
+        return str.replace('@currency@', 'PLN');
+    }).join('');
+}
+</code></pre>
+        <aside class="notes">templateData - immutable array of consts strings with spaces inside</aside>
+    </section>
+</section>

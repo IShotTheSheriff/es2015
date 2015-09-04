@@ -1,0 +1,58 @@
+<section>
+    <section data-background="assets/promiseland.jpg">
+        <h2 class="en-color-white" style="text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;">Promises</h2>
+    </section>
+
+    <section>
+        <h3>ES2015 Promise syntax</h3>
+<pre class="fragment"><code data-trim contenteditable>
+var promise = new Promise((resolve, reject) => {
+    setTimeout(resolve, 1000);
+});
+</code></pre>
+    </section>
+
+    <section>
+        <h3>Removing callback legacy code</h3>
+<pre class="fragment"><code data-trim contenteditable>
+import LegacyLib from 'LegacyLib';
+
+let internal;
+class LegacyLibDecorator{
+    constructor($q){
+        internal = {$q};
+    }
+    loadData(){
+        let deferred = $q.defer();
+        LegacyLib.loadData(
+            result => deferred.resolve(result),
+            error => deferred.reject(error)
+        );
+        return deferred;
+    }
+}
+</code></pre>
+    </section>
+
+    <section>
+        <h3>Refactor using Promise syntax</h3>
+<pre class="fragment"><code data-trim contenteditable>
+import LegacyLib from 'LegacyLib';
+
+let internal;
+class LegacyLibDecorator{
+    constructor($q){
+        internal = {$q};
+    }
+    loadData(){
+        return $q((resolve, reject) => {
+            LegacyLib.loadData(
+                result => resolve(result),
+                error => reject(error)
+            );
+        });
+    }
+}
+</code></pre>
+    </section>
+</section>

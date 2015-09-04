@@ -1,0 +1,156 @@
+<!-- AGENDA -->
+<section>
+    <section>
+        <h2>Agenda</h2>
+        <ul>
+            <li>What?</li>
+            <li class="fragment">Why?</li>
+            <li class="fragment">How?</li>
+            <li class="fragment">Raw meat!</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>What?</h2>
+        <p class="fragment">ES2015 is a significant and the first update to the language since ES5 was standardized in 2009</p>
+    </section>
+
+    <section>
+        <h2>Features</h2>
+        <table>
+            <tbody style="font-size: 20px !important;">
+            <tr class="fragment highlight-blue">
+                <td>let + const</td>
+                <td>arrows</td>
+                <td>classes</td>
+            </tr>
+            <tr class="fragment highlight-blue">
+                <td>enhanced object literals</td>
+                <td>modules</td>
+                <td>promises</td>
+            </tr>
+            <tr class="fragment highlight-blue">
+                <td>template strings</td>
+                <td>destructuring</td>
+                <td>default + rest + spread</td>
+            </tr>
+            <tr class="en-grey-text">
+                <td>iterators + for..of</td>
+                <td>generators</td>
+                <td>subclassable built-ins</td>
+            </tr>
+            <tr class="en-grey-text">
+                <td>map + set + weakmap + weakset</td>
+                <td>proxies</td>
+                <td>symbols</td>
+            </tr>
+            <tr class="en-grey-text">
+                <td>math + number + string + array + object APIs
+                <td>binary and octal literals</td>
+                <td>tail calls</td>
+            </tr>
+            <tr class="en-grey-text">
+                <td>unicode</td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section>
+        <h2>Why?</h2>
+        <p class="fragment">This Ecma Standard has been adopted by the General Assembly of June 2015.</p>
+    </section>
+
+    <section>
+        <img src="assets/barney.png" />
+    </section>
+
+    <section>
+        <h2>Pros</h2>
+        <ul>
+            <li class="fragment">Backward compatibility</li>
+            <li class="fragment">Less boilerplate</li>
+            <li class="fragment">Better maintainability</li>
+            <li class="fragment">Better preparation for Angular 2.0</li>
+            <li class="fragment en-blue-text">Easier for newcomers</li>
+            <li class="fragment en-blue-text">Staying current</li>
+        </ul>
+        <aside class="notes">Klasy pozwalają na ominięcie całej składni, moduly zapewniają lepsze zarządzanie scopem, dla osób z innego języka będzie łatwiej zrozumieć klasy</aside>
+    </section>
+
+    <section>
+        <img src="assets/jstrains2.png" />
+        <div>Slide from Jafar Husain's talk: <a href="https://www.youtube.com/watch?v=DqMFX91ToLw">ES7 evolution of JS</a></div>
+        <aside class="notes">@Jafar Husain, Netflix, https://www.youtube.com/watch?v=DqMFX91ToLw
+            1. staying current
+            2. helping community
+            3. smaller code base
+            4. speed up process
+            5. es6 to cos nad es5
+        </aside>
+    </section>
+
+    <section>
+        <h2>Cons</h2>
+        <ul>
+            <li>Browser compatibility</li>
+            <li class="fragment highlight-blue">Require transpilation</li>
+            <li class="fragment highlight-blue">No established best practises</li>
+            <li class="fragment highlight-blue">New things to learn</li>
+        </ul>
+        <aside class="notes">Converts es2015 to es5 ready for browsers.Can use experimental features. Trzeba uważać na to jak transpilowany kod działa w IE</aside>
+    </section>
+
+    <section>
+        <p>http://kangax.github.io/compat-table/es6</p>
+
+        <img src="assets/table.png" />
+    </section>
+
+    <section>
+        <h2>How?</h2>
+        <div class="fragment" >
+            <div style="background-color: #f5da55;">
+                <img style="border: none;" src="assets/babellogo.svg"/>
+            </div>
+            <p><a href="http://babeljs.io">http://babeljs.io</a></p>
+        </div>
+    </section>
+
+    <section>
+        <h2>Simple integration</h2>
+<pre><code data-trim contenteditable>
+var gulp = require("gulp");
+var babel = require("gulp-babel");
+
+gulp.task("default", function () {
+    return gulp.src("src/app.js")
+        .pipe(babel())
+        .pipe(gulp.dest("dist"));
+});
+</code></pre>
+    </section>
+
+    <section>
+        <h2>Online playground</h2>
+        <img src="assets/babel.png" />
+        <p><a href="http://babeljs.io/repl">http://babeljs.io/repl</a></p>
+    </section>
+
+    <section>
+        <h2>Webpack</h2>
+        <img src="assets/webpack.png" />
+        <p><a href="http://webpack.github.io">http://webpack.github.io</a></p>
+    </section>
+
+    <section>
+        <h3>Jump start webpack + babel + angular: <a href="https://github.com/Swiip/generator-gulp-angular">gulp-angular</a></h3>
+
+        <img src="assets/gulp-angular.png" />
+
+<pre><code data-trim contenteditable>
+yo gulp-angular
+</code></pre>
+    </section>
+
+</section>

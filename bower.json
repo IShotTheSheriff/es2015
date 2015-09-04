@@ -1,0 +1,27 @@
+{
+  "name": "es2015 presentation",
+  "version": "1.0.0",
+  "main": [
+    "js/reveal.js",
+    "css/reveal.css"
+  ],
+  "homepage": "http://infront.com.pl",
+  "license": "MIT",
+  "description": "ES2015 enhance angular 1.x applications",
+  "authors": [
+    "Ernest Nowacki <enowacki@infront.com.pl>"
+  ],
+  "dependencies": {
+    "headjs": "~1.0.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ishotthesheriff/es2015.git"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test"
+  ]
+}

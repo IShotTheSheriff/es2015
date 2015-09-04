@@ -1,0 +1,100 @@
+<section>
+    <section>
+        <h2>Default, spread, rest</h2>
+        <h3 class="fragment">ES5</h3>
+<pre class="fragment"><code data-trim contenteditable>
+function setOptions(debounce, interval, event){
+    debounce = debounce || 500;
+    interval = interval || 100;
+    event = event || 'blur';
+
+    console.info(debounce, interval, event);
+}
+
+setOptions(); //500, 100, blur
+setOptions(200); //200, 100, blur
+setOptions(undefined, null, 'change'); //500, 100, change
+</code></pre>
+
+<span class="fragment en-color-red">
+<pre>
+setOptions(0, 500); //500, 500, blur
+</pre>
+</span>
+        <aside class="notes">Default params, undefined i null sa traktowane jako nie przekazane</aside>
+    </section>
+
+    <section>
+        <h3>ES2015</h3>
+<pre class="fragment"><code data-trim contenteditable>
+function setOptions(debounce = 500, interval = 100, event = 'blur'){
+    console.info(debounce, interval, event);
+}
+
+setOptions(); //500, 100, blur
+setOptions(200); //200, 100, blur
+setOptions(0, 500); //0, 500, blur
+</code></pre>
+<span class="fragment en-color-red">
+<pre>
+setOptions(undefined, null, 'change'); //500, 0, change
+</pre>
+</span>
+        <aside class="notes">null = 0, undefined = missing</aside>
+    </section>
+
+    <section>
+        <h2>Spread</h2>
+        <h3 class="fragment">ES5</h3>
+<pre class="fragment"><code data-trim contenteditable>
+function foo(x,y,z) {
+    console.log( x, y, z );
+}
+foo.apply( null, [1,2,3] );     // 1 2 3
+</code></pre>
+        <h3 class="fragment">ES2015</h3>
+<pre class="fragment"><code data-trim contenteditable>
+function foo(x,y,z) {
+    console.log( x, y, z );
+}
+foo( ...[1,2,3] );              // 1 2 3
+</code></pre>
+        <aside class="notes">(in front of iterable)</aside>
+    </section>
+
+    <section>
+        <h3>Another usage of spread</h3>
+<pre class="fragment"><code data-trim contenteditable>
+let a = [2,3,4];
+let b = [ 1, ...a, 5 ];
+console.log( b );                   // [1,2,3,4,5]
+</code></pre>
+    </section>
+
+    <section>
+        <h2>Rest</h2>
+<pre class="fragment"><code data-trim contenteditable>
+function foo(x, y, ...z) {
+    console.log( x, y, z );
+}
+foo( 1, 2, 3, 4, 5 );           // 1 2 [3,4,5]
+</code></pre>
+    </section>
+
+    <section>
+        <h3>ES5</h3>
+<pre><code data-trim contenteditable>
+function test(){
+    var args = Array.prototype.slice.call( arguments );
+    //do sth
+}
+</code></pre>
+
+        <h3 class="fragment">ES2015</h3>
+<pre class="fragment"><code data-trim contenteditable>
+function test(...args){
+    //do sth
+}
+</code></pre>
+    </section>
+</section>
